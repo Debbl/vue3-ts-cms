@@ -42,7 +42,7 @@
   },
   "config": {
     "commitizen": {
-      "path": "@commitlint/config-conventional"
+      "path": "cz-conventional-changelog"
     }
   }
 }
