@@ -6,4 +6,5 @@ module.exports = {
   singleQuote: true, // 使用单引号
   trailingComma: 'es5', // 尾随逗号
   bracketSpacing: true, // { foo: bar } 有空格
+  endOfLine: 'lf', // 行尾 EOL
 };
