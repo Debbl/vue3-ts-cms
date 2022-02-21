@@ -1,14 +1,21 @@
-import axios from 'axios';
+import Request from './request';
+import { BASE_URL, TIMEOUT } from './request/config';
 
-axios.defaults.baseURL = 'http://httpbin.org';
-axios.defaults.timeout = 10000;
-
-axios.interceptors.request.use((config) => {
-  console.log(config);
-  return config;
+const RequestService = new Request({
+  baseURL: BASE_URL,
+  timeout: TIMEOUT,
+  interceptors: {
+    reqInterceptors(config) {
+      return config;
+    },
+  },
 });
 
-axios.interceptors.request.use((res) => {
-  console.log('响应成功');
-  return res.data;
+RequestService.request({
+  url: '/home/multidata',
+  method: 'GET',
+}).then((response) => {
+  console.log(response);
 });
+
+export default RequestService;
