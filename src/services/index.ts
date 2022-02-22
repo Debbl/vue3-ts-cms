@@ -6,7 +6,15 @@ const RequestService = new Request({
   timeout: TIMEOUT,
   interceptors: {
     reqInterceptors(config) {
+      const token = '111';
+      if (token) {
+        config.headers!.Authorization = `Bearer ${token}`;
+      }
       return config;
+    },
+    resInterceptors(response) {
+      // console.log('单独的实例');
+      return response.data;
     },
   },
 });
