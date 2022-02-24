@@ -19,12 +19,16 @@ const RequestService = new Request({
   },
 });
 
-RequestService.request({
+interface DataType {
+  data: any;
+  returnCode: string;
+  success: boolean;
+}
+RequestService.get<DataType>({
   url: '/home/multidata',
-  method: 'GET',
   showLoading: true,
 }).then((response) => {
-  console.log(response);
+  console.log(response.data);
 });
 
 export default RequestService;

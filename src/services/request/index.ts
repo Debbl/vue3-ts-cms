@@ -54,12 +54,34 @@ class Request {
     });
   }
 
-  request(reqConfig: ExAxiosRequestConfig) {
-    reqConfig.interceptors?.reqInterceptors &&
-      (reqConfig = reqConfig.interceptors.reqInterceptors(reqConfig));
-    reqConfig.showLoading !== undefined &&
-      (this.showLoading = reqConfig.showLoading);
-    return this.instance.request(reqConfig);
+  request<T>(reqConfig: ExAxiosRequestConfig): Promise<T> {
+    return new Promise((resolve, reject) => {
+      reqConfig.interceptors?.reqInterceptors &&
+        (reqConfig = reqConfig.interceptors.reqInterceptors(reqConfig));
+      reqConfig.showLoading !== undefined &&
+        (this.showLoading = reqConfig.showLoading);
+
+      this.instance
+        .request<any, T>(reqConfig)
+        .then((res) => {
+          resolve(res);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    });
+  }
+  get<T>(reqConfig: ExAxiosRequestConfig): Promise<T> {
+    return this.request({ ...reqConfig, method: 'GET' });
+  }
+  post<T>(reqConfig: ExAxiosRequestConfig): Promise<T> {
+    return this.request({ ...reqConfig, method: 'POST' });
+  }
+  delete<T>(reqConfig: ExAxiosRequestConfig): Promise<T> {
+    return this.request({ ...reqConfig, method: 'DELETE' });
+  }
+  patch<T>(reqConfig: ExAxiosRequestConfig): Promise<T> {
+    return this.request({ ...reqConfig, method: 'PATCH' });
   }
 }
 
