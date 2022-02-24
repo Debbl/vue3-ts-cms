@@ -22,6 +22,7 @@ const RequestService = new Request({
 RequestService.request({
   url: '/home/multidata',
   method: 'GET',
+  showLoading: true,
 }).then((response) => {
   console.log(response);
 });
