@@ -28,7 +28,7 @@ RequestService.get<DataType>({
   url: '/home/multidata',
   showLoading: true,
 }).then((response) => {
-  console.log(response.data);
+  console.log(response);
 });
 
 export default RequestService;
