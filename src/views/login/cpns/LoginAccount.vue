@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-form :model="account" :rules="rules" label-width="60">
+    <el-form :model="account" :rules="rules" label-width="60" ref="formRef">
       <el-form-item label="账号" :model="account" prop="name">
         <el-input v-model="account.name" />
       </el-form-item>
@@ -12,7 +12,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from 'vue';
+import { ElForm } from 'element-plus';
+import { defineComponent, reactive, ref } from 'vue';
 
 export default defineComponent({
   setup() {
@@ -20,6 +21,7 @@ export default defineComponent({
       name: '',
       password: '',
     });
+    const formRef = ref<InstanceType<typeof ElForm>>();
     // 表单验证规则
     const rules = {
       name: [
@@ -47,9 +49,18 @@ export default defineComponent({
         },
       ],
     };
+    const loginAction = () => {
+      console.log('account');
+      formRef.value?.validate((valid) => {
+        console.log(valid);
+        valid && console.log('ook');
+      });
+    };
     return {
       account,
       rules,
+      formRef,
+      loginAction,
     };
   },
 });
